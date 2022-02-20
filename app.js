@@ -7,22 +7,9 @@ const app = express();
 
 app.use(morgan("short"));
 
-app.use(function(req, res, next) {
-	const filePath = path.join(__dirname, "static", req.url);
-	fs.stat(filePath, function(err, fileInfo) {
-		if (err) {
-			next();
-			return;
-		}
-		if (fileInfo.isFile()) {
-			res.sendFile(filePath);
-		} else {
-			next();
-		}
-	});
-});
+app.use(express.static(path.join(__dirname, "static")));
 
-app.use(function(req, res){
+app.use(function(req, res) {
 	res.status(404);
 	res.send("File not found!");
 })
