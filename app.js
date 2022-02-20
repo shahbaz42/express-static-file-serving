@@ -5,11 +5,7 @@ const fs = require("fs");
 
 const app = express();
 
-app.use(function(req, res, next) {
-	console.log("Request IP: " + req.url);
-	console.log("Request Time : " + new Date());
-	next();
-})
+app.use(morgan("short"));
 
 app.use(function(req, res, next) {
 	const filePath = path.join(__dirname, "static", req.url);
